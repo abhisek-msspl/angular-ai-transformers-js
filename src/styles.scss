@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --font-sans: "Inter", sans-serif;
+  --font-mono: "Courier New", monospace;
+  --color-bg: #0a0a0a;
+  --color-text: #ffffff;
+  --color-subtle: #999;
+  --color-code-bg: #111;
+  --color-code-text: #e5e5e5;
+  --color-input-bg: #0a0a0a;
+  --color-btn-light: #fff;
+  --color-btn-dark: #111;
+}
+body {
+  background-color: black;
+  color: white;
+}

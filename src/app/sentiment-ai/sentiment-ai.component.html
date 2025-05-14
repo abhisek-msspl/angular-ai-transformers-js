@@ -1,0 +1,52 @@
+<div class="container">
+  <main class="main">
+    <div class="logo-row">
+      <img
+        src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg"
+        alt="Hugging Face logo"
+        width="50"
+        height="50"
+        [title]="'Huggingface'"
+      />
+      <span class="multiply">×</span>
+      <img
+        src="https://d585tldpucybw.cloudfront.net/sfimages/default-source/blogs/2023/2023-11/angular-logo.gif?sfvrsn=240a6236_3"
+        alt="Angular logo"
+        width="180"
+        height="50"
+        [title]="'Angular'"
+        class="invert-on-dark"
+      />
+    </div>
+    @if (loading$ | async) {
+    <div class="loading">
+      <p>Loading model... {{ progress$ | async }}</p>
+    </div>
+    }
+    <ol class="instructions">
+      <li>Get started by editing <code>src/app/app-component</code>.</li>
+      <li>
+        We use Sentiment analysis model using Transformers.js in our code.
+      </li>
+      <li>Save and see your changes instantly.</li>
+    </ol>
+    <input
+      type="text"
+      class="text-input"
+      placeholder="Enter text..."
+      (keyup)="onChangeText($event)"
+    />
+    <pre class="output-box">{{
+      resultText ? json.stringify(resultText, null, 2) : "Loading…"
+    }}</pre>
+  </main>
+  <footer>
+    <p>
+      Thanks to
+      <a
+        href="https://github.com/huggingface/transformers.js?tab=readme-ov-file"
+        >Transformers.js</a
+      >
+    </p>
+  </footer>
+</div>
