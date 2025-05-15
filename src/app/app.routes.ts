@@ -14,11 +14,25 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./chat-ai/chat-ai.component').then((c) => c.ChatAiComponent),
   },
+  // {
+  //   path: 'llama-llm-ai',
+  //   loadComponent: () =>
+  //     import('./llama-llm-ai/llama-llm-ai.component').then(
+  //       (c) => c.LlamaLlmAiComponent
+  //     ),
+  // },
   {
     path: 'generate-text-ai',
     loadComponent: () =>
       import('./generate-text-ai/generate-text-ai.component').then(
         (c) => c.GenerateTextAiComponent
+      ),
+  },
+  {
+    path: 'summarization-ai',
+    loadComponent: () =>
+      import('./summarization-ai/summarization-ai.component').then(
+        (c) => c.SummarizationAiComponent
       ),
   },
 ];

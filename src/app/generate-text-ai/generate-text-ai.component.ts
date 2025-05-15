@@ -22,48 +22,51 @@ export class GenerateTextAiComponent {
 
   constructor() {
     this.initModel();
-    this.checkWebGPU().then((response) => (this.isWebGpuEnabled = response));
+    // this.checkWebGPU().then((response) => (this.isWebGpuEnabled = response));
   }
 
-  async checkWebGPU() {
-    if (!(navigator as any).gpu) {
-      console.log('WebGPU is not supported on this browser.');
-      return false;
-    }
+  // async checkWebGPU() {
+  //   if (!(navigator as any).gpu) {
+  //     console.log('WebGPU is not supported on this browser.');
+  //     return false;
+  //   }
 
-    try {
-      const adapter = await (navigator as any).gpu.requestAdapter();
-      if (!adapter) {
-        console.log('WebGPU is supported, but no adapter found.');
-        return false;
-      }
-      console.log('WebGPU is enabled.');
-      return true;
-    } catch (error) {
-      console.error('An error occurred while checking WebGPU:', error);
-      return false;
-    }
-  }
+  //   try {
+  //     const adapter = await (navigator as any).gpu.requestAdapter();
+  //     if (!adapter) {
+  //       console.log('WebGPU is supported, but no adapter found.');
+  //       return false;
+  //     }
+  //     console.log('WebGPU is enabled.');
+  //     return true;
+  //   } catch (error) {
+  //     console.error('An error occurred while checking WebGPU:', error);
+  //     return false;
+  //   }
+  // }
 
   async initModel() {
     env.allowLocalModels = false;
     this.generator = await pipeline('text-generation', 'Xenova/distilgpt2', {
       progress_callback: (progress: { status: string }) => {
         this.progress$.next(progress.status);
+        if (progress.status === 'done') {
+          console.log(Date.now());
+        }
       },
     });
+    console.log(`Final done ${Date.now()}`);
     this.loading$.next(false);
   }
 
   async generate() {
     if (!this.prompt() || this.loading()) return;
     this.loading.set(true);
-    const result = this.generator(this.prompt(), {
+    const result = await this.generator(this.prompt(), {
       max_new_tokens: 30,
       do_sample: true,
       temperature: 0.7,
     });
-
     this.output.set((result[0] as any).generated_text);
     this.loading.set(false);
   }

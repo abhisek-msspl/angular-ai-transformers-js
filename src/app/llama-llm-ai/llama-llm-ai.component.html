@@ -1,0 +1,30 @@
+@if (loading$ | async) {
+<div class="loading">
+  <p>Loading model... {{ progress$ | async }}</p>
+</div>
+}
+<div class="chat-container">
+  @if (responseLoading) {
+  <div>message loading ..</div>
+  } @for (message of chatLog; track $index) {
+  <div class="chat">{{ message }}</div>
+  }
+  <input
+    class="text-black"
+    [(ngModel)]="userInput"
+    (keydown.enter)="sendMessage()"
+    placeholder="Type your message..."
+    [disabled]="responseLoading || !!(loading$ | async)"
+  />
+</div>
+@if (!isWebGpuEnabled || true) {
+<div class="instructions-webgpu text-black">
+  <h3>Enable WebGPU on Chrome:</h3>
+  <ul>
+    <li>Go to chrome://flags</li>
+    <li>Search for 'WebGPU'</li>
+    <li>Enable the WebGPU option</li>
+    <li>Restart Chrome</li>
+  </ul>
+</div>
+}

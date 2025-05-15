@@ -28,8 +28,8 @@ import { pipeline, TextStreamer } from '@huggingface/transformers';
         [disabled]="responseLoading || !!(loading$ | async)"
       />
     </div>
-    @if (!isWebGpuEnabled) {
-    <div class="instructions text-black">
+    @if (!isWebGpuEnabled || true) {
+    <div class="instructions-webgpu text-black">
       <h3>Enable WebGPU on Chrome:</h3>
       <ul>
         <li>Go to chrome://flags</li>
@@ -80,11 +80,9 @@ import { pipeline, TextStreamer } from '@huggingface/transformers';
       }
     `,
     `
-      .instructions {
-        margin: 20px;
-        padding: 10px;
-        background-color: #fff3e0;
-        border-radius: 8px;
+      .instructions-webgpu {
+        width: 470px;
+        margin: 20px auto;
       }
     `,
   ],
@@ -100,28 +98,28 @@ export class ChatAiComponent {
 
   ngOnInit() {
     this.loadModel();
-    this.checkWebGPU().then((response) => (this.isWebGpuEnabled = response));
+    // this.checkWebGPU().then((response) => (this.isWebGpuEnabled = response));
   }
 
-  async checkWebGPU() {
-    if (!(navigator as any).gpu) {
-      console.log('WebGPU is not supported on this browser.');
-      return false;
-    }
+  // async checkWebGPU() {
+  //   if (!(navigator as any).gpu) {
+  //     console.log('WebGPU is not supported on this browser.');
+  //     return false;
+  //   }
 
-    try {
-      const adapter = await (navigator as any).gpu.requestAdapter();
-      if (!adapter) {
-        console.log('WebGPU is supported, but no adapter found.');
-        return false;
-      }
-      console.log('WebGPU is enabled.');
-      return true;
-    } catch (error) {
-      console.error('An error occurred while checking WebGPU:', error);
-      return false;
-    }
-  }
+  //   try {
+  //     const adapter = await (navigator as any).gpu.requestAdapter();
+  //     if (!adapter) {
+  //       console.log('WebGPU is supported, but no adapter found.');
+  //       return false;
+  //     }
+  //     console.log('WebGPU is enabled.');
+  //     return true;
+  //   } catch (error) {
+  //     console.error('An error occurred while checking WebGPU:', error);
+  //     return false;
+  //   }
+  // }
 
   async loadModel() {
     try {
