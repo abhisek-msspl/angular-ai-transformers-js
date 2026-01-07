@@ -35,4 +35,11 @@ export const routes: Routes = [
         (c) => c.SummarizationAiComponent
       ),
   },
+  {
+    path: 'language-transfer-ai',
+    loadComponent: () =>
+      import('./language-transfer-ai/language-transfer-ai.component').then(
+        (c) => c.LanguageTransferAiComponent
+      ),
+  },
 ];
